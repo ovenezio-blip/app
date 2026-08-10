@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  meilisearch:
+    image: getmeili/meilisearch:v1.5.0
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+
+  app:
+    build: .
+    depends_on:
+      - meilisearch
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - PORT=${PORT}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - MEILI_HOST=${MEILI_HOST}
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+      - SYNC_INTERVAL_MS=${SYNC_INTERVAL_MS}
+      - GITHUB_PER_PAGE=${GITHUB_PER_PAGE}
+      - GITHUB_MAX_PAGES=${GITHUB_MAX_PAGES}
+      - SEED_QUERIES=${SEED_QUERIES}
+    volumes:
+      - ./:/app
+    command: ["node", "server.js"]
+
+volumes:
+  meili_data:

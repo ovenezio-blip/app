@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Open-source App Search</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 1rem; max-width: 980px; }
+    header { display:flex; align-items:center; gap:1rem; }
+    input[type="search"]{ flex:1; padding:8px 10px; font-size:1rem; }
+    button { padding:8px 12px; }
+    .result { border-bottom:1px solid #eee; padding:12px 0; }
+    .meta { color:#555; font-size:0.9rem; margin-top:6px; }
+    .desc { margin-top:6px; }
+    .tag { display:inline-block; background:#f0f0f0; padding:4px 8px; border-radius:12px; font-size:0.8rem; margin-right:6px; margin-top:6px; }
+    footer { margin-top:2rem; color:#666; font-size:0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="margin:0; font-size:1.2rem">Open-source App Search</h1>
+    <div style="flex:1"></div>
+  </header>
+
+  <form id="form" onsubmit="return false;" style="margin-top:1rem; display:flex; gap:8px;">
+    <input id="q" type="search" placeholder="Search apps, e.g. music player" />
+    <button id="go">Search</button>
+  </form>
+
+  <div id="results" style="margin-top:1rem;"></div>
+
+  <footer>
+    Tip: If results are sparse, trigger indexing on the server (POST /sync) or wait for periodic sync.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
